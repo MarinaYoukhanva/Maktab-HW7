@@ -1,6 +1,6 @@
 package model;
 
-import java.time.*;
+import org.joda.time.LocalDateTime;
 
 public class Article {
 
@@ -30,6 +30,7 @@ public class Article {
         this.status = "Not Published ";
         this.tags = new CustomList();
     }
+
 
     public int getId() {
         return id;
@@ -80,6 +81,21 @@ public class Article {
         return tags;
     }
 
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public LocalDateTime getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public LocalDateTime getPublishDate() {
+        return publishDate;
+    }
 
     @Override
     public String toString() {

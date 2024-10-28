@@ -3,6 +3,8 @@ package service;
 import database.Database;
 import model.Article;
 import model.CustomList;
+import org.joda.time.Duration;
+import org.joda.time.LocalDateTime;
 
 public class ArticleService {
 
@@ -37,4 +39,35 @@ public class ArticleService {
     public void addTagForArticle(Article article, int tagId) {
         article.getTags().add(Database.getAllTags().get(tagId - 1));
     }
+
+    public void filterByCreateDate(Duration duration) {
+        LocalDateTime filteredDate = LocalDateTime.now().minus(duration);
+        for (int i = 0; i < Database.getPublishedArticles().size(); i++) {
+            Article article = (Article) Database.getPublishedArticles().get(i);
+            if (article.getCreateDate().isAfter(filteredDate)) {
+                System.out.println(article.toString());
+            }
+        }
+    }
+    public void filterByLastUpdateDate(Duration duration) {
+        LocalDateTime filteredDate = LocalDateTime.now().minus(duration);
+        for (int i = 0; i < Database.getPublishedArticles().size(); i++) {
+            Article article = (Article) Database.getPublishedArticles().get(i);
+            if (article.getLastUpdateDate() != null) {
+                if (article.getLastUpdateDate().isAfter(filteredDate)) {
+                    System.out.println(article.toString());
+                }
+            }
+        }
+    }
+    public void filterByPublishDate(Duration duration) {
+        LocalDateTime filteredDate = LocalDateTime.now().minus(duration);
+        for (int i = 0; i < Database.getPublishedArticles().size(); i++) {
+            Article article = (Article) Database.getPublishedArticles().get(i);
+                if (article.getPublishDate().isAfter(filteredDate)) {
+                    System.out.println(article.toString());
+            }
+        }
+    }
+
 }

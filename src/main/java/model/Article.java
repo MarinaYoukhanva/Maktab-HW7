@@ -1,7 +1,11 @@
 package model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.joda.time.LocalDateTime;
 
+@Getter
+@Setter
 public class Article {
 
     private int id;
@@ -29,72 +33,6 @@ public class Article {
         this.publishDate = null;
         this.status = "Not Published ";
         this.tags = new CustomList();
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setBrief(String brief) {
-        this.brief = brief;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-
-    public void setPublished(boolean published) {
-        isPublished = published;
-    }
-
-    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
-
-    public void setPublishDate(LocalDateTime publishDate) {
-        this.publishDate = publishDate;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public CustomList getTags() {
-        return tags;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public LocalDateTime getLastUpdateDate() {
-        return lastUpdateDate;
-    }
-
-    public LocalDateTime getPublishDate() {
-        return publishDate;
     }
 
     @Override

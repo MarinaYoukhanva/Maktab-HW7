@@ -1,7 +1,12 @@
 package model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class Author extends User{
 
     private final String nationalCode;
@@ -22,23 +27,4 @@ public class Author extends User{
         this.articles = new CustomList();
     }
 
-    public String getNationalCode() {
-        return nationalCode;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
-    public CustomList getArticles() {
-        return articles;
-    }
-
-    public void setArticles(CustomList articles) {
-        this.articles = articles;
-    }
 }

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import database.Database;
 import model.*;
+import org.joda.time.Duration;
 import service.*;
 
 public class View {
@@ -22,6 +23,7 @@ public class View {
     boolean isLoginSuccess;
     LocalDate localDate;
     int choiceForUser;
+    Duration duration;
 
     public void mainMenu() {
         System.out.println("1.Author Menu ");
@@ -73,18 +75,63 @@ public class View {
                 }
                 break;
             case 3:
-                articleService.showPublishedArticlesMainInfo();
-                System.out.println("1.choose article for complete information");
-                System.out.println("2.back to previous menu");
+                System.out.println("1.view all published articles");
+                System.out.println("2.filter articles by date");
+                System.out.println("3.back to previous menu");
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1:
-                        System.out.println("which article do you want to see complete information: ");
-                        int articleChoice = sc.nextInt();
-                        articleService.showPublishedArticleCompleteInfo(articleChoice);
-                    case 2:
+                        articleService.showPublishedArticlesMainInfo();
+                        articleFullInfoMenu();
                         authorMenu();
+                        break;
+                    case 2:
+                        System.out.println("1.filter by creation date");
+                        System.out.println("2.filter by last update date");
+                        System.out.println("3.filter by publication date");
+                        int whichDateChoice = sc.nextInt();
+                        System.out.println("1.last 24 hours");
+                        System.out.println("2.last week");
+                        System.out.println("3.last month");
+                        System.out.println("4.last six months");
+                        System.out.println("5.last year");
+                        int durationChoice = sc.nextInt();
+                        switch (durationChoice) {
+                            case 1:
+                                duration = Duration.standardHours(24);
+                                break;
+                            case 2:
+                                duration = Duration.standardDays(7);
+                                break;
+                            case 3:
+                                duration = Duration.standardDays(30);
+                                break;
+                            case 4:
+                                duration = Duration.standardDays(182);
+                                break;
+                            case 5:
+                                duration = Duration.standardDays(365);
+                                break;
+                        }
+                        switch (whichDateChoice) {
+                            case 1:
+                                articleService.filterByCreateDate(duration);
+                                articleFullInfoMenu();
+                                break;
+                            case 2:
+                                articleService.filterByLastUpdateDate(duration);
+                                articleFullInfoMenu();
+                                break;
+                            case 3:
+                                articleService.filterByPublishDate(duration);
+                                articleFullInfoMenu();
+                                break;
+                        }
+                    case 3:
+                        authorMenu();
+                        break;
                 }
+
                 break;
             case 4:
                 mainMenu();
@@ -315,6 +362,12 @@ public class View {
                 Authentication.logout();
                 break;
         }
+    }
+
+    public void articleFullInfoMenu() {
+        System.out.println("1.choose article for complete information");
+        int articleChoice = sc.nextInt();
+        articleService.showPublishedArticleCompleteInfo(articleChoice);
     }
 }
 

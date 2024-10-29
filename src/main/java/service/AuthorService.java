@@ -82,5 +82,8 @@ public class AuthorService extends UserService{
         }
         return false;
     }
+    public Article findArticleByIdForAuthor (Author author, int articleId) {
+        return ArticleService.findArticleById(articleId, author.getArticles());
+    }
 
 }

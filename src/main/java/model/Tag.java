@@ -14,6 +14,9 @@ public class Tag {
         this.id = id;
         this.title = title;
     }
+    public Tag(String title) {
+        this.title = title;
+    }
 
     @Override
     public String toString() {

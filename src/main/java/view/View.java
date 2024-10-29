@@ -290,21 +290,54 @@ public class View {
 
     public void editingArticleMenu() {
         int articleChoice;
-        System.out.println("1.Update article ");
+        System.out.println("1.Edit article ");
         System.out.println("2.Publish article ");
         System.out.println("3.Unpublish article ");
         int choiceForEditArticle = sc.nextInt();
         switch (choiceForEditArticle) {
             case 1:
                 authorService.viewMyArticles(((Author) loggedInUser));
-                System.out.println("which article you want to update? ");
+                System.out.println("which article you want to edit? ");
                 articleChoice = sc.nextInt();
-                System.out.println("new Title, new Brief, new Content : ");
-                if (authorService.updateArticle((Author) loggedInUser, articleChoice,
-                        sc.next(), sc.next(), sc.next()))
-                    System.out.println("Update successful ");
-                else
-                    System.out.println("Article not found! ");
+                System.out.println("1.write new Title, new Brief and new Content ");
+                System.out.println("2.edit a specific part ");
+                int choice = sc.nextInt();
+                switch (choice) {
+                    case 1:
+                        if (authorService.updateArticle((Author) loggedInUser, articleChoice,
+                                sc.next(), sc.next(), sc.next()))
+                            System.out.println("Update successful ");
+                        else
+                            System.out.println("Article not found! ");
+                        break;
+                    case 2:
+                        System.out.println("1.title ");
+                        System.out.println("2.brief ");
+                        System.out.println("3.content ");
+                        System.out.println("4.add tag ");
+                        int choiceForPart = sc.nextInt();
+                        switch (choiceForPart) {
+                            case 1:
+                                System.out.println("new title: ");
+                                String newTitle = sc.next();
+                                authorService.findArticleByIdForAuthor(((Author) loggedInUser), articleChoice).setTitle(newTitle);
+                                break;
+                            case 2:
+                                System.out.println("new brief: ");
+                                String newBrief = sc.next();
+                                authorService.findArticleByIdForAuthor(((Author) loggedInUser), articleChoice).setBrief(newBrief);
+                                break;
+                            case 3:
+                                System.out.println("new content: ");
+                                String newContent = sc.next();
+                                authorService.findArticleByIdForAuthor(((Author) loggedInUser), articleChoice).setContent(newContent);
+                                break;
+                            case 4:
+                                addingTagMenu(authorService.findArticleByIdForAuthor(((Author) loggedInUser), articleChoice));
+                                break;
+                        }
+                        break;
+                }
                 break;
             case 2:
                 authorService.viewMyArticles(((Author) loggedInUser));
@@ -365,9 +398,19 @@ public class View {
     }
 
     public void articleFullInfoMenu() {
-        System.out.println("1.choose article for complete information");
+        System.out.println("1.complete information of the articles");
+        System.out.println("2.back to previous menu");
         int articleChoice = sc.nextInt();
-        articleService.showPublishedArticleCompleteInfo(articleChoice);
+        switch (articleChoice) {
+            case 1:
+                System.out.println("choose article for complete information");
+                int articleId = sc.nextInt();
+                articleService.showPublishedArticleCompleteInfo(articleId);
+                break;
+            case 2:
+                authorMenu();
+                break;
+        }
     }
 }
 

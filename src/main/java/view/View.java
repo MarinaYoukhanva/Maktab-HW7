@@ -359,20 +359,15 @@ public class View {
     }
 
     public void loggedInModeratorMenu() {
-        System.out.println("1.view articles awaiting publication: ");
+        System.out.println("view articles awaiting publication: ");
+        articleService.showPublishRequestedArticles();
+        System.out.println("1.choose article for publication approval or rejection ");
         System.out.println("2.logout ");
         int choice = sc.nextInt();
         switch (choice) {
             case 1:
-                articleService.showPublishRequestedArticles();
-                System.out.println("choose article for publication approval or rejection(id) ");
-                int logout = Database.getPublishRequestedArticles().size() + 1;
-                System.out.println(logout + ".logout ");
+                System.out.println("article id: ");
                 int articleId = sc.nextInt();
-                if (articleId == logout) {
-                    Authentication.logout();
-                    break;
-                }
                 System.out.println("1.Approve publication");
                 System.out.println("2.Reject publication");
                 int choiceForApproval = sc.nextInt();
